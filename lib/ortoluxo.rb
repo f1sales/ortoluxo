@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "ortoluxo/version"
+require 'f1sales_custom/parser'
+require 'f1sales_custom/source'
+require 'f1sales_custom/hooks'
+require_relative 'ortoluxo/version'
 
 module Ortoluxo
   class Error < StandardError; end
