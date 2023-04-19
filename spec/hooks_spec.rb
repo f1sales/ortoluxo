@@ -44,6 +44,14 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
           expect(switch_source).to eq('Facebook - King koil Prime Store - Braz Leme')
         end
       end
+
+      context 'when lead come with Av. Alcântara Machado, 2940 - Belenzinho in message' do
+        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Alcântara Machado, 2940 - Belenzinho' }
+
+        it 'returns Facebook - King koil Prime Store - Braz Leme' do
+          expect(switch_source).to eq('Facebook - King koil Prime Store - Belenzinho')
+        end
+      end
     end
 
     context 'when lead come from Simmons Prime Store' do
@@ -78,6 +86,96 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
         it 'returns Facebook - Simmons Prime Store - Salim' do
           expect(switch_source).to eq('Facebook - Simmons Prime Store - Salim')
+        end
+      end
+    end
+  end
+
+  context 'when lead come from Simmons' do
+    context 'when the source is Widgrid' do
+      before { source.name = 'Widgrid - Simmons' }
+
+      context 'when message contain Shopping Aricanduva' do
+        before { lead.message = 'Simmons - ESC - Aricanduva - Shopping Aricanduva - Mattress One' }
+
+        it 'returns Simmons - Facebook - Aricanduva' do
+          expect(switch_source).to eq('Widgrid - Simmons - Aricanduva')
+        end
+      end
+
+      context 'when message contain Teodoro Sampaio' do
+        before { lead.message = 'Simmons - ESC - Pinheiros - Rua Teodoro Sampaio, 1649 - Mattress One' }
+
+        it 'returns Simmons - Facebook - Aricanduva' do
+          expect(switch_source).to eq('Widgrid - Simmons - Teodoro')
+        end
+      end
+
+      context 'when message contain Shopping União' do
+        before { lead.message = 'Simmons - ESC - Vila Yara - Shopping União - Mattress One' }
+
+        it 'returns Simmons - Facebook - Aricanduva' do
+          expect(switch_source).to eq('Widgrid - Simmons - Osasco')
+        end
+      end
+
+      context 'when message contain Salim Farah Maluf' do
+        before { lead.message = 'Simmons - ESC - Tatuape - Av. Salim Farah Maluf, 3167 - Mattress One' }
+
+        it 'returns Simmons - Facebook - Aricanduva' do
+          expect(switch_source).to eq('Widgrid - Simmons - Salim')
+        end
+      end
+
+      context 'when message contain Shopping Lar Center' do
+        before { lead.message = 'Simmons - ESC - Vila Guilherme - Shopping Lar Center - Mattress One' }
+
+        it 'returns Simmons - Facebook - Lar Center' do
+          expect(switch_source).to eq('Widgrid - Simmons - Lar Center')
+        end
+      end
+    end
+
+    context 'when the source is Facebook' do
+      before { source.name = 'Simmons - Facebook' }
+
+      context 'when message contain Shopping Aricanduva' do
+        before { lead.message = 'conditional_question_2: São Paulo; conditional_question_3: Aricanduva - Shopping Aricanduva - Mattress One; conditional_question_1: São Paulo' }
+
+        it 'returns Simmons - Facebook - Aricanduva' do
+          expect(switch_source).to eq('Simmons - Facebook - Aricanduva')
+        end
+      end
+
+      context 'when message contain Teodoro Sampaio' do
+        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Pinheiros - Rua Teodoro Sampaio, 1649 - Mattress One' }
+
+        it 'returns Simmons - Facebook - Aricanduva' do
+          expect(switch_source).to eq('Simmons - Facebook - Teodoro')
+        end
+      end
+
+      context 'when message contain Shopping União' do
+        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: Osasco; conditional_question_3: Vila Yara - Shopping União - Mattress One' }
+
+        it 'returns Simmons - Facebook - Aricanduva' do
+          expect(switch_source).to eq('Simmons - Facebook - Osasco')
+        end
+      end
+
+      context 'when message contain Salim Farah Maluf' do
+        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Tatuape - Av. Salim Farah Maluf, 3167 - Mattress One' }
+
+        it 'returns Simmons - Facebook - Aricanduva' do
+          expect(switch_source).to eq('Simmons - Facebook - Salim')
+        end
+      end
+
+      context 'when message contain Shopping Lar Center' do
+        before { lead.message = 'conditional_question_2: São Paulo; conditional_question_3: Vila Guilherme - Shopping Lar Center - Mattress One; conditional_question_1: São Paulo' }
+
+        it 'returns Simmons - Facebook - Lar Center' do
+          expect(switch_source).to eq('Simmons - Facebook - Lar Center')
         end
       end
     end
