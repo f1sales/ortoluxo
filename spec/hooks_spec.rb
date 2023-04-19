@@ -44,6 +44,14 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
           expect(switch_source).to eq('Facebook - King koil Prime Store - Braz Leme')
         end
       end
+
+      context 'when lead come with Av. Alcântara Machado, 2940 - Belenzinho in message' do
+        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Alcântara Machado, 2940 - Belenzinho' }
+
+        it 'returns Facebook - King koil Prime Store - Braz Leme' do
+          expect(switch_source).to eq('Facebook - King koil Prime Store - Belenzinho')
+        end
+      end
     end
 
     context 'when lead come from Simmons Prime Store' do

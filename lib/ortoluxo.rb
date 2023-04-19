@@ -23,6 +23,7 @@ module Ortoluxo
         return "#{source_name} - Aricanduva" if message_down['aricanduva']
         return "#{source_name} - Osasco" if message_down['shopping união']
         return "#{source_name} - Lar Center" if message_down['shopping lar center']
+        return "#{source_name} - Belenzinho" if message_down['belenzinho']
 
         source_name
       end
