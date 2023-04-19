@@ -24,6 +24,7 @@ module Ortoluxo
         return "#{source_name} - Osasco" if message_down['shopping união']
         return "#{source_name} - Lar Center" if message_down['shopping lar center']
         return "#{source_name} - Belenzinho" if message_down['belenzinho']
+        return "#{source_name} - Interlagos" if message_down['interlagos']
 
         source_name
       end
