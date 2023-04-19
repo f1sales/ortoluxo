@@ -18,8 +18,11 @@ module Ortoluxo
         return "#{source_name} - Braz Leme" if message_down['av. braz leme']
         return "#{source_name} - Autonomistas" if message_down['av. dos autonomistas']
         return "#{source_name} - Otto Baumgart" if message_down['av. otto baumgart']
-        return "#{source_name} - Teodoro" if message_down['r. teodoro sampaio']
+        return "#{source_name} - Teodoro" if message_down['teodoro sampaio']
         return "#{source_name} - Salim" if message_down['av. salim farah maluf']
+        return "#{source_name} - Aricanduva" if message_down['aricanduva']
+        return "#{source_name} - Osasco" if message_down['shopping união']
+        return "#{source_name} - Lar Center" if message_down['shopping lar center']
 
         source_name
       end
