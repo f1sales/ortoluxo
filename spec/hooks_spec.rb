@@ -6,6 +6,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     lead = OpenStruct.new
     lead.message = nil
     lead.source = source
+    lead.product = product
 
     lead
   end
@@ -15,6 +16,13 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     source.name = 'Some source'
 
     source
+  end
+
+  let(:product) do
+    product = OpenStruct.new
+    product.name = ''
+
+    product
   end
 
   let(:switch_source) { described_class.switch_source(lead) }
@@ -30,7 +38,9 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       before { source.name = 'Facebook - King koil Prime Store' }
 
       context 'when lead come with Av. Corifeu de Azevedo Marques, 593 - Butantã in message' do
-        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Corifeu de Azevedo Marques, 593 - Butantã' }
+        before do
+          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Corifeu de Azevedo Marques, 593 - Butantã'
+        end
 
         it 'returns Facebook - King koil Prime Store - Corifeu' do
           expect(switch_source).to eq('Facebook - King koil Prime Store - Corifeu')
@@ -38,7 +48,9 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       end
 
       context 'when lead come with Av. Braz Leme, 1603 - Santana in message' do
-        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Braz Leme, 1603 - Santana' }
+        before do
+          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Braz Leme, 1603 - Santana'
+        end
 
         it 'returns Facebook - King koil Prime Store - Braz Leme' do
           expect(switch_source).to eq('Facebook - King koil Prime Store - Braz Leme')
@@ -46,7 +58,9 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       end
 
       context 'when lead come with Av. Alcântara Machado, 2940 - Belenzinho in message' do
-        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Alcântara Machado, 2940 - Belenzinho' }
+        before do
+          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Alcântara Machado, 2940 - Belenzinho'
+        end
 
         it 'returns Facebook - King koil Prime Store - Braz Leme' do
           expect(switch_source).to eq('Facebook - King koil Prime Store - Belenzinho')
@@ -54,7 +68,9 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       end
 
       context 'when lead come with Av. Interlagos 2225 - Shopping Interlar Interlagos in message' do
-        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Interlagos 2225 - Shopping Interlar Interlagos' }
+        before do
+          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Interlagos 2225 - Shopping Interlar Interlagos'
+        end
 
         it 'returns Facebook - King koil Prime Store - Braz Leme' do
           expect(switch_source).to eq('Facebook - King koil Prime Store - Interlagos')
@@ -66,7 +82,9 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       before { source.name = 'Facebook - Simmons Prime Store' }
 
       context 'when lead come with Shopping União Osasco - Av. dos Autonomistas, 1400 - Loja 1400 - Vila Yara in message' do
-        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: Osasco; conditional_question_3: Shopping União Osasco - Av. dos Autonomistas, 1400 - Loja 1400 - Vila Yara' }
+        before do
+          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: Osasco; conditional_question_3: Shopping União Osasco - Av. dos Autonomistas, 1400 - Loja 1400 - Vila Yara'
+        end
 
         it 'returns Facebook - Simmons Prime Store - Corifeu' do
           expect(switch_source).to eq('Facebook - Simmons Prime Store - Autonomistas')
@@ -74,7 +92,9 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       end
 
       context 'when lead come with Shopping Lar Center - Av. Otto Baumgart, 500 - Loja 108, Piso 1 - Vila Guilherme in message' do
-        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Shopping Lar Center - Av. Otto Baumgart, 500 - Loja 108, Piso 1 - Vila Guilherme' }
+        before do
+          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Shopping Lar Center - Av. Otto Baumgart, 500 - Loja 108, Piso 1 - Vila Guilherme'
+        end
 
         it 'returns Facebook - Simmons Prime Store - Otto Baumgart' do
           expect(switch_source).to eq('Facebook - Simmons Prime Store - Otto Baumgart')
@@ -82,7 +102,9 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       end
 
       context 'when lead come with R. Teodoro Sampaio, 1.649 - Pinheiro in message' do
-        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: R. Teodoro Sampaio, 1.649 - Pinheiros' }
+        before do
+          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: R. Teodoro Sampaio, 1.649 - Pinheiros'
+        end
 
         it 'returns Facebook - Simmons Prime Store - Teodoro' do
           expect(switch_source).to eq('Facebook - Simmons Prime Store - Teodoro')
@@ -90,10 +112,20 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       end
 
       context 'when lead come with Av. Salim Farah Maluf, 3167 - Água Rasa in message' do
-        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Salim Farah Maluf, 3167 - Água Rasa' }
+        before do
+          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Salim Farah Maluf, 3167 - Água Rasa'
+        end
 
         it 'returns Facebook - Simmons Prime Store - Salim' do
           expect(switch_source).to eq('Facebook - Simmons Prime Store - Salim')
+        end
+      end
+
+      context 'when store information come in product' do
+        before { product.name = 'Osasco#Titanium 50%off + travesseiros-copy' }
+
+        it 'returns Facebook - Simmons Prime Store - Osasco' do
+          expect(switch_source).to eq('Facebook - Simmons Prime Store - Osasco')
         end
       end
     end
@@ -148,7 +180,9 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       before { source.name = 'Simmons - Facebook' }
 
       context 'when message contain Shopping Aricanduva' do
-        before { lead.message = 'conditional_question_2: São Paulo; conditional_question_3: Aricanduva - Shopping Aricanduva - Mattress One; conditional_question_1: São Paulo' }
+        before do
+          lead.message = 'conditional_question_2: São Paulo; conditional_question_3: Aricanduva - Shopping Aricanduva - Mattress One; conditional_question_1: São Paulo'
+        end
 
         it 'returns Simmons - Facebook - Aricanduva' do
           expect(switch_source).to eq('Simmons - Facebook - Aricanduva')
@@ -156,7 +190,9 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       end
 
       context 'when message contain Teodoro Sampaio' do
-        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Pinheiros - Rua Teodoro Sampaio, 1649 - Mattress One' }
+        before do
+          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Pinheiros - Rua Teodoro Sampaio, 1649 - Mattress One'
+        end
 
         it 'returns Simmons - Facebook - Aricanduva' do
           expect(switch_source).to eq('Simmons - Facebook - Teodoro')
@@ -164,7 +200,9 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       end
 
       context 'when message contain Shopping União' do
-        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: Osasco; conditional_question_3: Vila Yara - Shopping União - Mattress One' }
+        before do
+          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: Osasco; conditional_question_3: Vila Yara - Shopping União - Mattress One'
+        end
 
         it 'returns Simmons - Facebook - Aricanduva' do
           expect(switch_source).to eq('Simmons - Facebook - Osasco')
@@ -172,7 +210,9 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       end
 
       context 'when message contain Salim Farah Maluf' do
-        before { lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Tatuape - Av. Salim Farah Maluf, 3167 - Mattress One' }
+        before do
+          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Tatuape - Av. Salim Farah Maluf, 3167 - Mattress One'
+        end
 
         it 'returns Simmons - Facebook - Aricanduva' do
           expect(switch_source).to eq('Simmons - Facebook - Salim')
@@ -180,7 +220,9 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       end
 
       context 'when message contain Shopping Lar Center' do
-        before { lead.message = 'conditional_question_2: São Paulo; conditional_question_3: Vila Guilherme - Shopping Lar Center - Mattress One; conditional_question_1: São Paulo' }
+        before do
+          lead.message = 'conditional_question_2: São Paulo; conditional_question_3: Vila Guilherme - Shopping Lar Center - Mattress One; conditional_question_1: São Paulo'
+        end
 
         it 'returns Simmons - Facebook - Lar Center' do
           expect(switch_source).to eq('Simmons - Facebook - Lar Center')
