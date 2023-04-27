@@ -6,6 +6,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     lead = OpenStruct.new
     lead.message = nil
     lead.source = source
+    lead.product = product
 
     lead
   end
@@ -15,6 +16,13 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     source.name = 'Some source'
 
     source
+  end
+
+  let(:product) do
+    product = OpenStruct.new
+    product.name = ''
+
+    product
   end
 
   let(:switch_source) { described_class.switch_source(lead) }
@@ -94,6 +102,14 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
         it 'returns Facebook - Simmons Prime Store - Salim' do
           expect(switch_source).to eq('Facebook - Simmons Prime Store - Salim')
+        end
+      end
+
+      context 'when store information come in product' do
+        before { product.name = 'Osasco#Titanium 50%off + travesseiros-copy' }
+
+        it 'returns Facebook - Simmons Prime Store - Osasco' do
+          expect(switch_source).to eq('Facebook - Simmons Prime Store - Osasco')
         end
       end
     end

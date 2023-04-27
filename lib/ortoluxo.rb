@@ -13,6 +13,7 @@ module Ortoluxo
       def switch_source(lead)
         source_name = lead.source.name
         message_down = lead.message&.downcase || ''
+        product_name_down = lead.product.name&.downcase || ''
 
         return "#{source_name} - Corifeu" if message_down['av. corifeu de azevedo']
         return "#{source_name} - Braz Leme" if message_down['av. braz leme']
@@ -25,6 +26,7 @@ module Ortoluxo
         return "#{source_name} - Lar Center" if message_down['shopping lar center']
         return "#{source_name} - Belenzinho" if message_down['belenzinho']
         return "#{source_name} - Interlagos" if message_down['interlagos']
+        return "#{source_name} - Osasco" if product_name_down['osasco']
 
         source_name
       end
