@@ -219,13 +219,25 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         end
       end
 
-      context 'when message contain Shopping Lar Center' do
-        before do
-          lead.message = 'conditional_question_2: São Paulo; conditional_question_3: Vila Guilherme - Shopping Lar Center - Mattress One; conditional_question_1: São Paulo'
+      context 'when is from Lar Center' do
+        context 'when message contains Shopping Lar Center' do
+          before do
+            lead.message = 'conditional_question_2: São Paulo; conditional_question_3: Vila Guilherme - Shopping Lar Center - Mattress One; conditional_question_1: São Paulo'
+          end
+
+          it 'returns Simmons - Facebook - Lar Center' do
+            expect(switch_source).to eq('Simmons - Facebook - Lar Center')
+          end
         end
 
-        it 'returns Simmons - Facebook - Lar Center' do
-          expect(switch_source).to eq('Simmons - Facebook - Lar Center')
+        context 'when product contains Lar Center' do
+          before do
+            product.name = 'Loja Lar center - Bla Bla Bla'
+          end
+
+          it 'returns Simmons - Facebook - Lar Center' do
+            expect(switch_source).to eq('Simmons - Facebook - Lar Center')
+          end
         end
       end
     end
