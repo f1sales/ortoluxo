@@ -12,17 +12,17 @@ module Ortoluxo
     class << self
       def switch_source(lead)
         @lead = lead
-        return "#{source_name} - Corifeu" if message['av. corifeu de azevedo']
-        return "#{source_name} - Braz Leme" if message['av. braz leme']
-        return "#{source_name} - Autonomistas" if message['av. dos autonomistas']
-        return "#{source_name} - Otto Baumgart" if message['av. otto baumgart']
-        return "#{source_name} - Teodoro" if message['teodoro sampaio']
-        return "#{source_name} - Salim" if message['av. salim farah maluf']
-        return "#{source_name} - Aricanduva" if message['aricanduva']
-        return "#{source_name} - Osasco" if message['shopping união'] || product_name['osasco']
-        return "#{source_name} - Lar Center" if message['lar center'] || product_name['lar center']
-        return "#{source_name} - Belenzinho" if message['belenzinho']
-        return "#{source_name} - Interlagos" if message['interlagos']
+        return "#{source_name} - Corifeu" if corifeu?
+        return "#{source_name} - Braz Leme" if braz_leme?
+        return "#{source_name} - Autonomistas" if autonomistas?
+        return "#{source_name} - Otto Baumgart" if otto_baumgart?
+        return "#{source_name} - Teodoro" if teodoro?
+        return "#{source_name} - Salim" if salim?
+        return "#{source_name} - Aricanduva" if aricanduva?
+        return "#{source_name} - Osasco" if osasco?
+        return "#{source_name} - Lar Center" if lar_center?
+        return "#{source_name} - Belenzinho" if belenzinho?
+        return "#{source_name} - Interlagos" if interlagos?
 
         source_name
       end
@@ -37,6 +37,50 @@ module Ortoluxo
 
       def source_name
         @lead.source.name
+      end
+
+      def corifeu?
+        message['av. corifeu de azevedo']
+      end
+
+      def braz_leme?
+        message['av. braz leme']
+      end
+
+      def autonomistas?
+        message['av. dos autonomistas']
+      end
+
+      def otto_baumgart?
+        message['av. otto baumgart']
+      end
+
+      def teodoro?
+        message['teodoro sampaio'] || product_name['teodoro']
+      end
+
+      def salim?
+        message['salim farah maluf'] || product_name['salim farah maluf']
+      end
+
+      def aricanduva?
+        message['aricanduva'] || product_name['aricanduva']
+      end
+
+      def osasco?
+        message['shopping união'] || product_name['osasco']
+      end
+
+      def lar_center?
+        message['lar center'] || product_name['lar center']
+      end
+
+      def belenzinho?
+        message['belenzinho']
+      end
+
+      def interlagos?
+        message['interlagos']
       end
     end
   end

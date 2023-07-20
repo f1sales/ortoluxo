@@ -179,23 +179,47 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     context 'when the source is Facebook' do
       before { source.name = 'Simmons - Facebook' }
 
-      context 'when message contain Shopping Aricanduva' do
-        before do
-          lead.message = 'conditional_question_2: São Paulo; conditional_question_3: Aricanduva - Shopping Aricanduva - Mattress One; conditional_question_1: São Paulo'
+      context 'when is from Shopping Aricanduva' do
+        context 'when message contain Shopping Aricanduva' do
+          before do
+            lead.message = 'conditional_question_2: São Paulo; conditional_question_3: Aricanduva - Shopping Aricanduva - Mattress One; conditional_question_1: São Paulo'
+          end
+
+          it 'returns Simmons - Facebook - Aricanduva' do
+            expect(switch_source).to eq('Simmons - Facebook - Aricanduva')
+          end
         end
 
-        it 'returns Simmons - Facebook - Aricanduva' do
-          expect(switch_source).to eq('Simmons - Facebook - Aricanduva')
+        context 'when product contain Shopping Aricanduva' do
+          before do
+            product.name = 'Loja Simmons Aricanduva - Geocities 50%off - [Shopping Interlar Aricanduva - Av. Aricanduva, 5.555 - Loja 137 - Jardim Aricanduva]-copy'
+          end
+
+          it 'returns Simmons - Facebook - Aricanduva' do
+            expect(switch_source).to eq('Simmons - Facebook - Aricanduva')
+          end
         end
       end
 
-      context 'when message contain Teodoro Sampaio' do
-        before do
-          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Pinheiros - Rua Teodoro Sampaio, 1649 - Mattress One'
+      context 'when is from Teodoro Sampaio' do
+        context 'when message contain Teodoro Sampaio' do
+          before do
+            lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Pinheiros - Rua Teodoro Sampaio, 1649 - Mattress One'
+          end
+
+          it 'returns Simmons - Facebook - Aricanduva' do
+            expect(switch_source).to eq('Simmons - Facebook - Teodoro')
+          end
         end
 
-        it 'returns Simmons - Facebook - Aricanduva' do
-          expect(switch_source).to eq('Simmons - Facebook - Teodoro')
+        context 'when product contain Teodoro Sampaio' do
+          before do
+            product.name = 'Loja Simmons Teodoro - Geocities 50%off - [R. Teodoro Sampaio, 1.649 - Pinheiro]'
+          end
+
+          it 'returns Simmons - Facebook - Aricanduva' do
+            expect(switch_source).to eq('Simmons - Facebook - Teodoro')
+          end
         end
       end
 
@@ -209,13 +233,25 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         end
       end
 
-      context 'when message contain Salim Farah Maluf' do
-        before do
-          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Tatuape - Av. Salim Farah Maluf, 3167 - Mattress One'
+      context 'when is from Salim Farah Maluf' do
+        context 'when message contain Salim Farah Maluf' do
+          before do
+            lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Tatuape - Av. Salim Farah Maluf, 3167 - Mattress One'
+          end
+
+          it 'returns Simmons - Facebook - Aricanduva' do
+            expect(switch_source).to eq('Simmons - Facebook - Salim')
+          end
         end
 
-        it 'returns Simmons - Facebook - Aricanduva' do
-          expect(switch_source).to eq('Simmons - Facebook - Salim')
+        context 'when product contain Salim Farah Maluf' do
+          before do
+            product.name = 'Loja Simmons Salim - Geocities 50%off - [Av. Salim Farah Maluf, 3167 - Água Rasa]'
+          end
+
+          it 'returns Simmons - Facebook - Aricanduva' do
+            expect(switch_source).to eq('Simmons - Facebook - Salim')
+          end
         end
       end
 
