@@ -27,6 +27,8 @@ module Ortoluxo
         source_name
       end
 
+      private
+
       def message
         @lead.message&.downcase || ''
       end
@@ -40,7 +42,7 @@ module Ortoluxo
       end
 
       def corifeu?
-        message['av. corifeu de azevedo']
+        message['av. corifeu de azevedo'] || product_name['corifeu']
       end
 
       def braz_leme?

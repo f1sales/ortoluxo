@@ -37,13 +37,25 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     context 'when lead come from King koil Prime Store' do
       before { source.name = 'Facebook - King koil Prime Store' }
 
-      context 'when lead come with Av. Corifeu de Azevedo Marques, 593 - Butantã in message' do
-        before do
-          lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Corifeu de Azevedo Marques, 593 - Butantã'
+      context 'whe lead is from Corifeu' do
+        context 'when message contains store information' do
+          before do
+            lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Av. Corifeu de Azevedo Marques, 593 - Butantã'
+          end
+
+          it 'returns Facebook - King koil Prime Store - Corifeu' do
+            expect(switch_source).to eq('Facebook - King koil Prime Store - Corifeu')
+          end
         end
 
-        it 'returns Facebook - King koil Prime Store - Corifeu' do
-          expect(switch_source).to eq('Facebook - King koil Prime Store - Corifeu')
+        context 'when product contains store information' do
+          before do
+            product.name = 'Loja Corifeu - Colchão Desire 12x 189 - 08082023'
+          end
+
+          it 'returns Facebook - King koil Prime Store - Corifeu' do
+            expect(switch_source).to eq('Facebook - King koil Prime Store - Corifeu')
+          end
         end
       end
 
