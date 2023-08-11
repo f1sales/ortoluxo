@@ -10,21 +10,34 @@ module Ortoluxo
 
   class F1SalesCustom::Hooks::Lead
     class << self
+      SOURCE_PATTERNS = {
+        'Corifeu' => ['corifeu'],
+        'Braz Leme' => ['braz leme'],
+        'Autonomistas' => ['autonomistas'],
+        'Otto Baumgart' => ['otto baumgart'],
+        'Teodoro' => ['teodoro'],
+        'Salim' => ['salim'],
+        'Aricanduva' => ['aricanduva'],
+        'Osasco' => ['osasco', 'shopping união'],
+        'Lar Center' => ['lar center'],
+        'Belenzinho' => ['belenzinho'],
+        'Interlagos' => ['interlagos']
+      }.freeze
+
       def switch_source(lead)
         @lead = lead
-        return "#{source_name} - Corifeu" if corifeu?
-        return "#{source_name} - Braz Leme" if braz_leme?
-        return "#{source_name} - Autonomistas" if autonomistas?
-        return "#{source_name} - Otto Baumgart" if otto_baumgart?
-        return "#{source_name} - Teodoro" if teodoro?
-        return "#{source_name} - Salim" if salim?
-        return "#{source_name} - Aricanduva" if aricanduva?
-        return "#{source_name} - Osasco" if osasco?
-        return "#{source_name} - Lar Center" if lar_center?
-        return "#{source_name} - Belenzinho" if belenzinho?
-        return "#{source_name} - Interlagos" if interlagos?
 
-        source_name
+        detected_source = detect_source
+        detected_source ? "#{source_name} - #{detect_source}" : source_name
+      end
+
+      private
+
+      def detect_source
+        SOURCE_PATTERNS.each do |source_name, patterns|
+          return source_name if patterns.any? { |pattern| message[pattern] || product_name[pattern] }
+        end
+        nil
       end
 
       def message
@@ -37,50 +50,6 @@ module Ortoluxo
 
       def source_name
         @lead.source.name
-      end
-
-      def corifeu?
-        message['av. corifeu de azevedo']
-      end
-
-      def braz_leme?
-        message['av. braz leme']
-      end
-
-      def autonomistas?
-        message['av. dos autonomistas']
-      end
-
-      def otto_baumgart?
-        message['av. otto baumgart']
-      end
-
-      def teodoro?
-        message['teodoro sampaio'] || product_name['teodoro']
-      end
-
-      def salim?
-        message['salim farah maluf'] || product_name['salim farah maluf']
-      end
-
-      def aricanduva?
-        message['aricanduva'] || product_name['aricanduva']
-      end
-
-      def osasco?
-        message['shopping união'] || product_name['osasco']
-      end
-
-      def lar_center?
-        message['lar center'] || product_name['lar center']
-      end
-
-      def belenzinho?
-        message['belenzinho']
-      end
-
-      def interlagos?
-        message['interlagos']
       end
     end
   end
