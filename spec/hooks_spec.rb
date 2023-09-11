@@ -158,7 +158,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       context 'when message contain Teodoro Sampaio' do
         before { lead.message = 'Simmons - ESC - Pinheiros - Rua Teodoro Sampaio, 1649 - Mattress One' }
 
-        it 'returns Simmons - Facebook - Aricanduva' do
+        it 'returns Simmons - Facebook - Teodoro' do
           expect(switch_source).to eq('Widgrid - Simmons - Teodoro')
         end
       end
@@ -166,7 +166,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       context 'when message contain Shopping União' do
         before { lead.message = 'Simmons - ESC - Vila Yara - Shopping União - Mattress One' }
 
-        it 'returns Simmons - Facebook - Aricanduva' do
+        it 'returns Simmons - Facebook - Osasco' do
           expect(switch_source).to eq('Widgrid - Simmons - Osasco')
         end
       end
@@ -174,7 +174,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       context 'when message contain Salim Farah Maluf' do
         before { lead.message = 'Simmons - ESC - Tatuape - Av. Salim Farah Maluf, 3167 - Mattress One' }
 
-        it 'returns Simmons - Facebook - Aricanduva' do
+        it 'returns Simmons - Facebook - Salim' do
           expect(switch_source).to eq('Widgrid - Simmons - Salim')
         end
       end
@@ -219,7 +219,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
             lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Pinheiros - Rua Teodoro Sampaio, 1649 - Mattress One'
           end
 
-          it 'returns Simmons - Facebook - Aricanduva' do
+          it 'returns Simmons - Facebook - Teodoro' do
             expect(switch_source).to eq('Simmons - Facebook - Teodoro')
           end
         end
@@ -229,7 +229,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
             product.name = 'Loja Simmons Teodoro - Geocities 50%off - [R. Teodoro Sampaio, 1.649 - Pinheiro]'
           end
 
-          it 'returns Simmons - Facebook - Aricanduva' do
+          it 'returns Simmons - Facebook - Teodoro' do
             expect(switch_source).to eq('Simmons - Facebook - Teodoro')
           end
         end
@@ -240,7 +240,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
           lead.message = 'conditional_question_1: São Paulo; conditional_question_2: Osasco; conditional_question_3: Vila Yara - Shopping União - Mattress One'
         end
 
-        it 'returns Simmons - Facebook - Aricanduva' do
+        it 'returns Simmons - Facebook - Osasco' do
           expect(switch_source).to eq('Simmons - Facebook - Osasco')
         end
       end
@@ -251,7 +251,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
             lead.message = 'conditional_question_1: São Paulo; conditional_question_2: São Paulo; conditional_question_3: Tatuape - Av. Salim Farah Maluf, 3167 - Mattress One'
           end
 
-          it 'returns Simmons - Facebook - Aricanduva' do
+          it 'returns Simmons - Facebook - Salim' do
             expect(switch_source).to eq('Simmons - Facebook - Salim')
           end
         end
@@ -261,7 +261,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
             product.name = 'Loja Simmons Salim - Geocities 50%off - [Av. Salim Farah Maluf, 3167 - Água Rasa]'
           end
 
-          it 'returns Simmons - Facebook - Aricanduva' do
+          it 'returns Simmons - Facebook - Salim' do
             expect(switch_source).to eq('Simmons - Facebook - Salim')
           end
         end
@@ -286,6 +286,20 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
           it 'returns Simmons - Facebook - Lar Center' do
             expect(switch_source).to eq('Simmons - Facebook - Lar Center')
           end
+        end
+      end
+    end
+
+    context 'when the source is Simmons - Widgrid' do
+      before { source.name = 'Simmons - Widgrid' }
+
+      context 'when is from Salim' do
+        before do
+          product.name = 'Loja Simmons Salim - Geocities 50%off - [Av. Salim Farah Maluf, 3167 - Água Rasa]'
+        end
+
+        it 'returns Simmons - Facebook - Salim - exclusivo' do
+          expect(switch_source).to eq('Simmons - Widgrid - Salim - exclusivo')
         end
       end
     end

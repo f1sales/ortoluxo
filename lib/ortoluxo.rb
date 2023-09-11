@@ -28,7 +28,8 @@ module Ortoluxo
         @lead = lead
 
         detected_source = detect_source
-        detected_source ? "#{source_name} - #{detect_source}" : source_name
+        source = detected_source ? "#{source_name} - #{detect_source}" : source_name
+        source.downcase['simmons - widgrid'] ? "#{source} - exclusivo" : source
       end
 
       private
